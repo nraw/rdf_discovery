@@ -1,0 +1,16 @@
+PREFIX vann:<http://purl.org/vocab/vann/>
+PREFIX voaf:<http://purl.org/vocommons/voaf#>
+PREFIX dcat:<http://www.w3.org/ns/dcat#>
+PREFIX dcterms:<http://purl.org/dc/terms/>
+
+### Vocabularies contained in LOV and their prefix
+SELECT DISTINCT ?prefix ?vocabURI ?reusedByDatasets ?description ?keyword {
+    SERVICE <https://lov.linkeddata.es/dataset/lov/sparql>{
+ 	GRAPH <https://lov.linkeddata.es/dataset/lov>{
+ 	 	?vocabURI a voaf:Vocabulary.
+ 	 	?vocabURI vann:preferredNamespacePrefix ?prefix.
+		?vocabURI voaf:reusedByDatasets ?reusedByDatasets.
+		?vocabURI dcterms:description ?description.
+        ?vocabURI dcat:keyword ?keyword.
+
+        }}} ORDER BY DESC(?reusedByDatasets)
